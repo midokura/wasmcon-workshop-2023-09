@@ -1,0 +1,47 @@
+{
+  "deployment": {
+    "deploymentId": "bf031e17-6a26-475e-95d0-dede8e798cf8",
+    "instanceSpecs": {
+      "sink_instance": {
+        "moduleId": "sink",
+        "subscribe": {
+          "my-topic": "my-topic-subscription"
+        },
+        "publish": {}
+      },
+      "source_instance": {
+        "moduleId": "source",
+        "subscribe": {},
+        "publish": {
+          "my-topic": "my-topic-publication"
+        }
+      }
+    },
+    "modules": {
+      "source": {
+        "entryPoint": "main",
+        "moduleImpl": "wasm",
+        "downloadUrl": "http://localhost:8000/bin/source.wasm",
+        "hash": "0ad4c49e62867fea677b6ea15723cd9e3a4fd55a2ce958297fbeb13b4de2f6b5"
+      },
+      "sink": {
+        "entryPoint": "main",
+        "moduleImpl": "wasm",
+        "downloadUrl": "http://localhost:8000/bin/sink.wasm",
+        "hash": "84d8f2dca0d1cd2c9f4c2b0442bfad4b547f571957be9739586974a8158f7628"
+      }
+    },
+    "publishTopics": {
+      "my-topic-publication": {
+        "type": "local",
+        "topic": "my-topic"
+      }
+    },
+    "subscribeTopics": {
+      "my-topic-subscription": {
+        "type": "local",
+        "topic": "my-topic"
+      }
+    }
+  }
+}
