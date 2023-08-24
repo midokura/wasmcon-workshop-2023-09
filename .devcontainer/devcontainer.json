@@ -1,0 +1,12 @@
+{
+  "name": "Devcontainer",
+  "dockerFile": "Dockerfile",
+  "context": "..",
+  "runArgs": ["--network","host"],
+  "postCreateCommand": ".devcontainer/entrypoint.sh",
+  "extensions": [
+    "ms-toolsai.jupyter",
+    "ms-toolsai.jupyter-keymap",
+    "ms-toolsai.jupyter-renderers"
+  ]
+}
