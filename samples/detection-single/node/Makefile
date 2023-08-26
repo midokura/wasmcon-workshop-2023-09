@@ -3,7 +3,7 @@ MODULE_NAME = node
 PROJECTDIR = ../../
 include $(PROJECTDIR)/sdk/rules.mk
 
-MORE_CPPFLAGS += -O0 -g
+CFLAGS += -O0 -g
 
 OBJS=\
 	main.o\
@@ -18,7 +18,7 @@ all: $(TARGET)
 
 $(TARGET): $(OBJS)
 	mkdir -p `dirname $@`
-	$(CC) $(PROJ_LDFLAGS) -o $@ $(OBJS)
+	$(CC) $(CFLAGS) $(PROJ_LDFLAGS) -o $@ $(OBJS)
 
 clean:
-	rm -f $(TARGET)
+	rm -f $(TARGET) $(OBJS)
