@@ -1,0 +1,1 @@
+# Detection VSA single WASM

@@ -1,0 +1,22 @@
+{
+  "deployment": {
+    "deploymentId": "detection-single-wasm",
+    "instanceSpecs": {
+      "node": {
+        "moduleId": "node",
+        "subscribe": {},
+        "publish": {}
+      }
+    },
+    "modules": {
+      "node": {
+        "entryPoint": "main",
+        "moduleImpl": "wasm",
+        "downloadUrl": "http://localhost:8000/bin/node.wasm",
+        "hash": "489a5aff530993c2de185a9a12b9d6abd73c79f93816b771ae7ac7154592d1c5"
+      }
+    },
+    "publishTopics": {},
+    "subscribeTopics": {}
+  }
+}
