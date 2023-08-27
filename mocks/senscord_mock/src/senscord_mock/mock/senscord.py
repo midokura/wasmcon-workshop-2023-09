@@ -111,7 +111,6 @@ class CvScalar (Structure):
 class MockSenscord:
     def __init__(self):
         self.core = 999
-        self.input = None
         self.image = None
         self.rawdata = None
         self.config_cb = None
@@ -134,9 +133,8 @@ class MockSenscord:
         self.inq.put(e)
 
 
-    def set_input(self, image, input):
+    def set_input(self, image):
         self.image = image
-        self.input = input
     
     def set_display_func(self, func):
         self.display_func = func
@@ -334,10 +332,20 @@ class MockSenscord:
                 signature=String.from_param("(i)"),
             ),
             NativeSymbol(
+                symbol=String.from_param("cvCreateMat"),
+                func_ptr=cast(
+                    CFUNCTYPE(c_int32, c_void_p, c_int32, c_int32, c_int32)(
+                        self.cvCreateMat
+                    ),
+                    c_void_p,
+                ),
+                signature=String.from_param("(iii)i"),
+            ),
+            NativeSymbol(
                 symbol=String.from_param("cvCreateMatHeader"),
                 func_ptr=cast(
                     CFUNCTYPE(c_int32, c_void_p, c_int32, c_int32, c_int32)(
-                        self.cvCreateMatHeader
+                        self.cvCreateMat
                     ),
                     c_void_p,
                 ),
@@ -372,11 +380,41 @@ class MockSenscord:
                     c_void_p,
                 ),
                 signature=String.from_param("(iiiiiii)"),
-            )     
+            ),
+            NativeSymbol(
+                symbol=String.from_param("cvResize"),
+                func_ptr=cast(
+                    CFUNCTYPE(None, c_void_p, c_int32, c_int32, c_int32)(
+                        self.cvResize
+                    ),
+                    c_void_p,
+                ),
+                signature=String.from_param("(iii)"),
+            ),
+            NativeSymbol(
+                symbol=String.from_param("cvCvtColor"),
+                func_ptr=cast(
+                    CFUNCTYPE(None, c_void_p, c_int32, c_int32, c_int32)(
+                        self.cvCvtColor
+                    ),
+                    c_void_p,
+                ),
+                signature=String.from_param("(iii)"),
+            ),
+            NativeSymbol(
+                symbol=String.from_param("cvReleaseMat"),
+                func_ptr=cast(
+                    CFUNCTYPE(None, c_void_p, c_int32)(
+                        self.cvReleaseMat
+                    ),
+                    c_void_p,
+                ),
+                signature=String.from_param("(i)"),
+            ), 
         ]
         return syms
 
-    def cvCreateMatHeader(self, env, width, height, mode):
+    def cvCreateMat(self, env, width, height, mode):
         return 0
 
     def cvSetData(self, env, width, height, mode):
@@ -384,6 +422,15 @@ class MockSenscord:
 
     def cvGetData(self, env, width, height, mode):
         return 0
+
+    def cvResize(self, env, width, height, mode):
+        pass
+
+    def cvCvtColor(self, env, width, height, mode):
+        pass
+    
+    def cvReleaseMat(self, env, buff):
+        pass
 
     def cvRectangle(self, env, img, t1,  t2, color, thickness: int, type:int, shift:int):
         env = ExecEnv.wrap(env)
@@ -529,12 +576,18 @@ class MockSenscord:
 
         data_host = module_inst.app_addr_to_native_addr(value)
 
+        PIXEL_FORMAT=b"image_rgb24"
+        c_buf = c_void_p()
+        wasm_buf = module_inst.malloc(
+            len(PIXEL_FORMAT), cast(byref(c_buf), POINTER(c_void_p))
+        )
+        memmove(c_buf, memoryview(PIXEL_FORMAT).tobytes(), len(PIXEL_FORMAT))
         property = cast(data_host.value, POINTER(senscord_image_property)).contents
         
         property.width = 300
         property.height =  300
         property.stride_bytes =  300 * 3
-        #property.pixel_format = 
+        property.pixel_format = wasm_buf
 
 
         return 0       

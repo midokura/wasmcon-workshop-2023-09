@@ -441,21 +441,12 @@ main()
     LOG_INFO("Sensor started!");
 
     for (;;) {
-        for (int i = 0; i < 10; ++i) {
-            result = EVP_processEvent(h, 1);
-            if (result == EVP_SHOULDEXIT) {
-                LOG_INFO("Exiting the main loop");
-                goto END;
-            }
-        }
-
         frame_t frame;
         ret = sensor_get_frame(stream, &frame);
         if (ret != 0) {
             LOG_INFO("Skipping frame");
             continue;
         }
-
         LOG_INFO("image_property height = %d", frame.info[0].property.height);
         LOG_INFO("image_property width = %d", frame.info[0].property.width);
         LOG_INFO("image_property stride_bytes = %d",
@@ -488,6 +479,13 @@ main()
             LOG_ERR("Release frame error");
             goto END;
         };
+        for (int i = 0; i < 10; ++i) {
+            result = EVP_processEvent(h, 1);
+            if (result == EVP_SHOULDEXIT) {
+                LOG_INFO("Exiting the main loop");
+                goto END;
+            }
+        }
     }
 END:
     if (model_file != NULL)

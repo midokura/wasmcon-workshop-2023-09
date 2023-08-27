@@ -38,6 +38,8 @@ EVP_TIMEDOUT = 2
 
 EVP_STATE_CALLBACK_REASON_SENT = 0
 EVP_TELEMETRY_CALLBACK_REASON_SENT = 0
+EVP_BLOB_CALLBACK_REASON_DONE = 0
+EVP_RPC_RESPONSE_CALLBACK_REASON_SENT = 0
 
 class EVPInitializeCalled(NamedTuple):
     pass
@@ -59,6 +61,20 @@ class EVPSetConfigurationCallbackCalled(NamedTuple):
     cb: int
     userdata: int
 
+class EVPSetRPCCallbackCalled(NamedTuple):
+    h: int
+    cb: int
+    userdata: int
+
+class EVP_blobOperationCalled(NamedTuple):
+    h: int
+    type: int
+    operation: int
+    request: int
+    localStore: int
+    cb: int
+    userdata: int  
+
 
 class EVPSendStateCalled(NamedTuple):
     h: int
@@ -73,6 +89,11 @@ class EVPConfig(NamedTuple):
     topic: str
     blob: bytes
 
+class EVPRpc(NamedTuple):
+    method: str
+    params: str
+
+
 class EVPShutdown(NamedTuple):
     pass
 
@@ -85,15 +106,25 @@ class EVPTelemetryCallback(NamedTuple):
     reason: int  # EVP_TELEMETRY_CALLBACK_REASON_SENT
     cb: int
     userdata: int
-    
-class EVP_BlobRequestAzureBlob(NamedTuple):
-    url: c_char_p
+
+class EVPRpcCallback(NamedTuple):
+    reason: int  # EVP_RPC_RESPONSE_CALLBACK_REASON_SENT
+    cb: int
+    userdata: int
+
+class EVPBlobCallback(NamedTuple):
+    reason: int  # EVP_BLOB_CALLBACK_REASON_DONE
+    cb: int
+    userdata: int    
 
 class MockEVP:
     def __init__(self):
         self.h = 999
         self.config_cb = None
         self.config_cb_userdata = None
+        self.rpc_id = 1
+        self.rpc_cb = None
+        self.rpc_cb_userdata = None
         self.outq = queue.Queue()
         self.inq = queue.Queue()
 
@@ -147,6 +178,16 @@ class MockEVP:
                 func_ptr=cast(
                     CFUNCTYPE(c_int32, c_void_p, c_int32, c_int32, c_int32)(
                         self.EVP_setConfigurationCallback
+                    ),
+                    c_void_p
+                ),
+                signature=String.from_param("(iii)i"),
+            ),
+            NativeSymbol(
+                symbol=String.from_param("EVP_setRpcCallback"),
+                func_ptr=cast(
+                    CFUNCTYPE(c_int32, c_int32, c_int32, c_int32, c_int32)(
+                        self.EVP_setRpcCallback
                     ),
                     c_void_p
                 ),
@@ -237,6 +278,31 @@ class MockEVP:
         env.call_indirect(self.config_cb, 4, cast(byref(args), POINTER(c_uint)))
         module_inst.free(wasm_buf)
 
+    def invokeRpcCallback(self, env: ExecEnv, e):
+        self.log(f"invokeRpcCallback an event {e}")
+        if self.rpc_cb is None:
+            print(f"dropping an event because no callback is set {e}")
+            return
+
+        method = bytes(e.method + "\0", encoding="utf-8")
+        method_len = len(method)
+        params = bytes(e.params + "\0", encoding="utf-8")
+        params_len = len(params)
+
+        c_buf = c_void_p()
+        module_inst = env.get_module_inst()
+        wasm_buf = module_inst.malloc(
+            method_len + params_len, cast(byref(c_buf), POINTER(c_void_p))
+        )
+        memmove(c_buf, memoryview(method).tobytes(), method_len)
+        memmove(c_void_p(c_buf.value + method_len), memoryview(params).tobytes(), params_len)
+        # Since EVP_RPC_ID is 64 bits we need an extra parameter (4 + 1)
+        args = (c_uint * 5)(self.rpc_id, 0, wasm_buf, wasm_buf + method_len, self.rpc_cb_userdata)
+        env.call_indirect(self.rpc_cb, 5, cast(byref(args), POINTER(c_uint)))
+        module_inst.free(wasm_buf)
+        self.rpc_id += 1
+
+
     def invokeStateCallback(self, env: ExecEnv, e):
         args = (c_uint * 2)(e.reason, e.userdata)
         env.call_indirect(e.cb, 4, cast(byref(args), POINTER(c_uint)))
@@ -248,6 +314,8 @@ class MockEVP:
             self.invokeConfigurationCallback(env, e)
         elif isinstance(e, EVPStateCallback):
             self.invokeStateCallback(env, e)
+        elif isinstance(e, EVPRpc):
+            self.invokeRpcCallback(env, e)
         else:
             self.log(f"dropping unknown event {e}")
 
@@ -259,9 +327,7 @@ class MockEVP:
     def EVP_getWorkspaceDirectory(self, env: int, h, type):
         env = ExecEnv.wrap(env)
         module_inst = env.get_module_inst()
-        workspasepath = os.environ['ROOT_REPOSITORY']
-        print(f"workspace name {workspasepath}")
-        workspace = bytes(workspasepath + "/assets" + "\0", encoding="utf-8")
+        workspace = bytes("/assets" + "\0", encoding="utf-8")
 
         host_workspace = c_void_p()
         workspace_wasm = module_inst.malloc(
@@ -272,20 +338,13 @@ class MockEVP:
         return workspace_wasm
 
     def EVP_blobOperation(self, env: int, h, type, operation, request, localStore, cb, userdata):
-
-        e = EVP_blobOperationCalled(h, blob, bloblen, cb, userdata)
+        e = EVP_blobOperationCalled(h, type, operation, request, localStore, cb, userdata)
         self.queueAPIEvent(e)
-        e = EVPTelemetryCallback(
-            reason=EVP_TELEMETRY_CALLBACK_REASON_SENT, cb=cb, userdata=userdata
+        e = EVPBlobCallback(
+            reason=EVP_BLOB_CALLBACK_REASON_DONE, cb=cb, userdata=userdata
         )
         self.injectEvent(e)
-        
-        env = ExecEnv.wrap(env)
-        module_inst = env.get_module_inst()       
-
-
-                
-        return c_workspace_wasm        
+        return EVP_OK
 
     def EVP_processEvent(self, env: int, h, timeout_ms):
  
@@ -312,6 +371,38 @@ class MockEVP:
         self.config_cb = cb
         self.config_cb_userdata = userdata
         return EVP_OK
+    
+    def invokeRpcCallback(self, env: ExecEnv, e):
+        self.log(f"invokeRpcCallback an event {e}")
+        if self.rpc_cb is None:
+            print(f"dropping an event because no callback is set {e}")
+            return
+        print(f"{e}")
+        method = bytes(e.method + "\0", encoding="utf-8")
+        method_len = len(method)
+        params = bytes(e.params + "\0", encoding="utf-8")
+        params_len = len(params)
+
+        c_buf = c_void_p()
+        module_inst = env.get_module_inst()
+        wasm_buf = module_inst.malloc(
+            method_len + params_len, cast(byref(c_buf), POINTER(c_void_p))
+        )
+        memmove(c_buf, memoryview(method).tobytes(), method_len)
+        memmove(c_void_p(c_buf.value + method_len), memoryview(params).tobytes(), params_len)
+        # Since EVP_RPC_ID is 64 bits we need an extra parameter (4 + 1)
+        args = (c_uint * 5)(self.rpc_id, 0, wasm_buf, wasm_buf + method_len, self.rpc_cb_userdata)
+        env.call_indirect(self.rpc_cb, 5, cast(byref(args), POINTER(c_uint)))
+        module_inst.free(wasm_buf)
+        self.rpc_id += 1
+
+    def EVP_setRpcCallback(self, env, h, cb, userdata):
+        e = EVPSetRPCCallbackCalled(h, cb, userdata)
+        self.queueAPIEvent(e)
+        self.rpc_cb = cb
+        self.rpc_cb_userdata = userdata
+        return EVP_OK
+
 
     def EVP_sendState(self, env, h, topic, blob, bloblen, cb, userdata):
         e = EVPSendStateCalled(h, topic, blob, bloblen, cb, userdata)

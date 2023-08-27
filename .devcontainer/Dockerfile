@@ -1,7 +1,7 @@
 FROM python:3.10-bookworm
 RUN apt-get update && apt-get install -y \
         make cmake git curl wget software-properties-common unzip \
-        ffmpeg libsm6 libxext6 git cmake build-essential clang gcc g++ pkg-config vim
+        ffmpeg libsm6 libxext6 git cmake build-essential clang gcc g++ pkg-config vim lsof
 
 # mosquitto
 RUN apt-get update && apt-get install -y mosquitto

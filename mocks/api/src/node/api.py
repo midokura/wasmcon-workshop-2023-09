@@ -53,7 +53,7 @@ class Node:
 
     def load_module(self, wasm_path: str):
         self.module = Module.from_file(self.engine, wasm_path)
-        self.module_inst = Instance(self.module, heap_size = 198304, dir_list = [ "/", "/assets"])
+        self.module_inst = Instance(self.module, heap_size = 198304, dir_list = [ "/"])
         self.exec_env = ExecEnv(self.module_inst)
 
     def __del__(self):
