@@ -1,0 +1,8 @@
+tensorflow==2.11.0
+matplotlib==3.6.3
+opencv-python==4.7.0.68
+ipykernel==6.20.1
+node-api==0.0.3
+evp-mock==0.0.4
+senscord_mock==0.0.2
+wasi-nn==0.0.3
