@@ -1,0 +1,3 @@
+wamr-python
+numpy==1.24.2
+flatbuffers==23.1.4
