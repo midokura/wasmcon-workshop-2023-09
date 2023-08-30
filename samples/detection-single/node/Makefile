@@ -4,6 +4,7 @@ PROJECTDIR = ../../
 include $(PROJECTDIR)/sdk/rules.mk
 
 CFLAGS += -O0 -g
+CFLAGS += -DWINDOW_NAME=\"$(GITHUB_USER)\"
 
 OBJS=\
 	main.o\
