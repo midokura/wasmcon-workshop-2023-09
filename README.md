@@ -9,20 +9,9 @@ Please start codespaces with your favorite configuration.
 
 ## Getting Started
 
-### Preparation
-1. Open Codespaces with your local Visual Studio Code. 
-2. Accept LLDB download which is asked by wamr-ide. (wamr-ide also ask you to get docker image, but it is not nessesary)
-3. Provision Raspberry Pi4 by following jupyter notebook
-
-   [wasmcon-provision.ipynb](./wasmcon-provision.ipynb)
-
 
 ### Basic Hands-on
-   Simple Data transfer Application can be deployed
-
-
-   Jump to 
-   [wasmcon-workshop.ipynb](./wasmcon-workshop.ipynb)
+   
 ### Advanced Hands-on
 　 Face Detection Application with live camera stream can be deployed
 
