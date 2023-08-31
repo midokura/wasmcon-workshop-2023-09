@@ -65,7 +65,7 @@ frame_bbox(uint8_t *image, uint32_t size,
     color.val[1] = bbox_color.g;
     color.val[2] = bbox_color.b;
     color.val[3] = 8;
-    cvRectangle(mat1, &p1, &p2, &color, 3, 8, 0);
+    cvRectangle(mat1, &p1, &p2, &color, 1, 8, 0);
 
     cvGetData(mat1, image, INPUT_TENSOR_SIZE * INPUT_TENSOR_SIZE * 3);
     cvReleaseMat(&mat1);
