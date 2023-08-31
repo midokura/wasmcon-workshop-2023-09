@@ -12,7 +12,7 @@
       "node": {
         "entryPoint": "main",
         "moduleImpl": "wasm",
-        "downloadUrl": "http://192.168.4.121:8000/bin/node.arm64.aot",
+        "downloadUrl": "http://localhost:8000/bin/node.arm64.aot",
         "hash": "d4c12eb76e8b3a1bc1c7dc6580b83f3f024ba462127fda7c773c9d092ea552b8"
       }
     },

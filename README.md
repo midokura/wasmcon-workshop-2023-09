@@ -24,7 +24,7 @@ Please start codespaces with your favorite configuration.
 
 ### Troubleshooting 
 
-1. no response from wedge-cli
+1. No response from wedge-cli
 
    If you already run mqtt broker in your local machine, you will get fail because WEdge Agent may be trying to connect there. 
 
@@ -34,10 +34,10 @@ Please start codespaces with your favorite configuration.
    sudo systemctl stop mosquitto.service
    ```
 
-   if it is difficult, don't worry. codespaces automatically allocate different port as port-forwarding.
-   Please check the forwarded port in the bottom of codespaces window. There is the "PORTS" and see the port information.
+   If it is difficult, don't worry. codespaces automatically allocate different port as port-forwarding.
+   Please check the forwarded port in the bottom of codespaces window. There is the "PORTS" and see the port information and set it mqtt.port via WEdge CLI.
    
-2. download never finished
+2. Download never finished
    If you have firewall between host and device, it might be block module download. 
 
    Please allow the port to pass firewall. example for ufw on linux
