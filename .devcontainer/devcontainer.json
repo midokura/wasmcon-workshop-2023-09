@@ -14,5 +14,6 @@
         "wamr-ide.wamride"
       ]
     }
-  }
+  },
+  "forwardPorts": [1883, 8000]
 }
