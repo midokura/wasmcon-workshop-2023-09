@@ -5,6 +5,8 @@
 *.aot-*
 *.interp
 *tflite
+*.png
+*.json
 
 ################
 # Python       #

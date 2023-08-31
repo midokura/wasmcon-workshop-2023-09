@@ -23,7 +23,7 @@ Please start codespaces with your favorite configuration.
 
    Jump to 
    [wasmcon-workshop.ipynb](./wasmcon-workshop.ipynb)
-### Advanced-Hands-on
+### Advanced Hands-on
 　 Face Detection Application with live camera stream can be deployed
 
    Jump to 
