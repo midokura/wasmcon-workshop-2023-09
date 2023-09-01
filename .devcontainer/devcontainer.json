@@ -3,7 +3,7 @@
   "dockerFile": "Dockerfile",
   "context": "..",
   "runArgs": ["--network","host"],
-  "postCreateCommand": ".devcontainer/entrypoint.sh",
+  "postStartCommand": ".devcontainer/entrypoint.sh",
   "customizations": {
 		"vscode": {
       "settings": {
