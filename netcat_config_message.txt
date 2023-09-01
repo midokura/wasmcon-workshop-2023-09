@@ -1,0 +1,3 @@
+'{"evp": {"iot-platform": "tb", "version": "EVP2"},
+"mqtt":{"host": "192.168.1.62", "port": "1884"},
+"webserver":{"host": "localhost", "port": "8000"}}'
