@@ -1,7 +1,7 @@
 MODULE_NAME = ppl_detection_ssd
 
-PROJECTDIR = ../../../..
-include $(PROJECTDIR)/scripts/rules.mk
+PROJECTDIR = ../../
+include $(PROJECTDIR)/sdk/rules.mk
 
 OBJS=\
 	main.o\

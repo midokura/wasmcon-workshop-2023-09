@@ -1,7 +1,7 @@
 MODULE_NAME = senscord_source
 
-PROJECTDIR = ../../../..
-include $(PROJECTDIR)/scripts/rules.mk
+PROJECTDIR = ../../
+include $(PROJECTDIR)/sdk/rules.mk
 
 OBJS=\
 	main.o

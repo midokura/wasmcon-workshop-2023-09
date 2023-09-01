@@ -1,4 +1,4 @@
-PROJECTDIR = ../../..
+PROJECTDIR = ..
 DIRS =\
 	senscord_source\
 	inference_wasi_nn\
@@ -8,6 +8,6 @@ DIRS =\
 
 export TOOL=wasi
 export BINDIR=../bin
-include $(PROJECTDIR)/scripts/rules.mk
+include $(PROJECTDIR)/sdk/rules.mk
 
 all: $(DIRS)

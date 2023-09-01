@@ -1,7 +1,7 @@
 MODULE_NAME = draw_bboxes
 
-PROJECTDIR = ../../../..
-include $(PROJECTDIR)/scripts/rules.mk
+PROJECTDIR = ../../
+include $(PROJECTDIR)/sdk/rules.mk
 
 OBJS=\
 	main.o\

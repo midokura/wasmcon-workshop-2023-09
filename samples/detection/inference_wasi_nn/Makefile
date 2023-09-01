@@ -1,7 +1,7 @@
 MODULE_NAME = inference_wasi_nn
 
-PROJECTDIR = ../../../..
-include $(PROJECTDIR)/scripts/rules.mk
+PROJECTDIR = ../../
+include $(PROJECTDIR)/sdk/rules.mk
 
 OBJS=\
 	main.o\
