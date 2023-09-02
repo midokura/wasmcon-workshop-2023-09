@@ -1,6 +1,6 @@
 FROM python:3.10-bookworm
 RUN apt-get update && apt-get install -y \
-        make cmake git curl wget software-properties-common unzip \
+        make cmake git curl wget software-properties-common unzip pip \
         ffmpeg libsm6 libxext6 git cmake build-essential clang gcc g++ pkg-config vim lsof
 
 # mosquitto
@@ -20,8 +20,8 @@ ARG WEDGE_CLI_SAS_URL="https://cedata.blob.core.windows.net/main/wedge_cli-0.0.1
 RUN wget ${WEDGE_CLI_SAS_URL} -k -O wedge_cli-0.0.1-py3-none-any.whl
 RUN pip install wedge_cli-0.0.1-py3-none-any.whl
 
-# wasbt
-RUN curl -sL  https://github.com/WebAssembly/wabt/releases/download/1.0.33/wabt-1.0.33-ubuntu.tar.gz | tar zxvf - -C /tmp && \
+# wabt
+RUN curl -sL https://github.com/WebAssembly/wabt/releases/download/1.0.33/wabt-1.0.33-ubuntu.tar.gz | tar zxvf - -C /tmp && \
     mv /tmp/wabt-1.0.33 /opt/wabt 
 
 RUN echo "export PATH=$PATH:/opt:/opt/wabt/bin" >> ~/.bashrc

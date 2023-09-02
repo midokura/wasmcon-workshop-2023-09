@@ -3,7 +3,7 @@ MODULE_NAME = senscord_sink
 PROJECTDIR = ../../
 include $(PROJECTDIR)/sdk/rules.mk
 
-CFLAGS += -DWINDOW_NAME=\"$(GITHUB_USER)\"
+CFLAGS += -DWINDOW_NAME=\"$(GITHUB_USER)_pipeline\"
 
 OBJS=\
 	main.o
