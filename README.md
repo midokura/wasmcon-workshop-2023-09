@@ -15,33 +15,35 @@ Please start codespace by following the prerequisites below.
 
 - **Step 1.** Go to the repository *wasmcon-workshop-2023-09* (https://github.com/midokura/wasmcon-workshop-2023-09)
 - **Step 2.** Click "Code" → "Codespaces" → … → “+ New with options…”
-   ![Alt text](images/Prerequisites/wasmcon-workshop-2023-09.png)
+
+   ![Alt text](images/Prerequisites/wasmcon-workshop-2023-09.jpg)
+
 - **Step 3.** Click "Create codespace"
-   <br><img src=images/Prerequisites/Create_codespace.png width=75%><br>
+   <br><img src=images/Prerequisites/Create_codespace.jpg width=75%><br>
    It would take around 5 minutes to build the container.
-   <br><img src=images/Prerequisites/Setting_up_your_codespace.png width=75%>
+   <br><img src=images/Prerequisites/Setting_up_your_codespace.jpg width=75%><br>
 - **Step 4.** VS Code is displayed on the web-browser
-   ![Alt text](images/Prerequisites/VSCode_on_webbrowser.png)
+   ![Alt text](images/Prerequisites/VSCode_on_webbrowser.jpg)
 
 #### 2. Opening Codespace in VS Code Desktop
 
 - **Step 1.** Click the menu on left corner, then click “Open in VS Code Desktop”
-   <br><img src=images/Prerequisites/Open_Codespace_in_VSCode.png width=50%>
+   <br><img src=images/Prerequisites/Open_Codespace_in_VSCode.jpg width=50%>
 - **Step 2.** Click the “Open Visual Studio Code - URL Handler” in the popup
-   <br><img src=images/Prerequisites/Open_VSCode_URL-Handler.png width=90%>
+   <br><img src=images/Prerequisites/Open_VSCode_URL-Handler.jpg width=90%>
 - **Step 3.** Click the "Open"
-   <br><img src=images/Prerequisites/Allow_extension_VSCode.png width=90%><br>
+   <br><img src=images/Prerequisites/Allow_extension_VSCode.jpg width=90%><br>
    Now you can access the codespace container from your VS Code on your laptop.
-   <br><img src=images/Prerequisites/Codespace_VSCode_Laptop.png><br>
+   <br><img src=images/Prerequisites/Codespace_VSCode_Laptop.jpg><br>
    You can close the tab on the web-browser.
-   <br><img src=images/Prerequisites/Close_VSCode_tab_on_webbrowser.png width=90%><br>
+   <br><img src=images/Prerequisites/Close_VSCode_tab_on_webbrowser.jpg width=90%><br>
 
 #### 3. Confirming Port Forwarding
 
 - **Step 1.** Start New Terminal on your VS Code on your laptop
-   <br><img src=images/Prerequisites/Start_Terminal_VSCode.png width=75%><br>
+   <br><img src=images/Prerequisites/Start_Terminal_VSCode.jpg width=75%><br>
 - **Step 2.** Go to the “PORTS” tab, then confirm the settings of port forwarding are as attached
-   ![Alt text](images/Prerequisites/Confirm_Port_Forwarding.png)
+   ![Alt text](images/Prerequisites/Confirm_Port_Forwarding.jpg)
 
    |Port|Local Address |Running Process|Visibility|Origin           |
    |----|------------- |---------------|----------|-----------------|
@@ -90,7 +92,7 @@ In this section, we are sending configuration of MQTT to Raspberry Pi so that th
 
 ### Basic Hands-on
    Now you are ready to use wedge-cli. Please go to your Codespace VS Code on your laptop.
-   ![Alt text](images/Basic_Hands-on/VSCode_on_laptop.png)
+   ![Alt text](images/Basic_Hands-on/VSCode_on_laptop.jpg)
 
 #### 1. Displaying Help Message
    ```bash
@@ -102,7 +104,7 @@ In this section, we are sending configuration of MQTT to Raspberry Pi so that th
    ```bash
    wedge-cli get deployment
    ```
-   ![Alt text](images/Basic_Hands-on/get_deployment.png)
+   ![Alt text](images/Basic_Hands-on/get_deployment.jpg)
 
 #### 3. Building Sample WASM Applications "source-sink"
 - **Step 1.** Change configuration. Please set your laptop IP address.
@@ -114,9 +116,9 @@ In this section, we are sending configuration of MQTT to Raspberry Pi so that th
    ```bash
    cd samples/source-sink && wedge-cli build arm64
    ```
-   ![Alt text](images/Basic_Hands-on/Build_source_sink.png)
+   ![Alt text](images/Basic_Hands-on/Build_source_sink.jpg)
    You can find the built applications as below.
-   <br>![Alt text](images/Basic_Hands-on/source-sink_built_apps.png)
+   <br>![Alt text](images/Basic_Hands-on/source-sink_built_apps.jpg)
 
 #### 4. Deploying the Built WASM Applications to Raspberry Pi
 - **Step 1.** Change configuration setting to localhost
@@ -129,18 +131,18 @@ In this section, we are sending configuration of MQTT to Raspberry Pi so that th
    ```bash
    wedge-cli -v deploy
    ```
-   ![Alt text](images/Basic_Hands-on/deploy_source-sink.png)
+   ![Alt text](images/Basic_Hands-on/deploy_source-sink.jpg)
    ```bash
    wedge-cli get deployment
    ```
-   ![Alt text](images/Basic_Hands-on/get_deployment_source-sink.png)
+   ![Alt text](images/Basic_Hands-on/get_deployment_source-sink.jpg)
 
 #### 5. Getting Telemetry Sent from "sink" WASM Application
 
 ```bash
 wedge-cli get telemetry
 ```
-![Alt text](images/Basic_Hands-on/get_telemetry.png)
+![Alt text](images/Basic_Hands-on/get_telemetry.jpg)
 
 #### 6. Getting Log of "sink" WASM Application
 In this section, we are getting logs of the "sink" WASM application.
@@ -149,14 +151,14 @@ In this section, we are getting logs of the "sink" WASM application.
    ```bash
    wedge-cli get deployment
    ```
-   ![Alt text](images/Basic_Hands-on/get_deployment_source-sink.png)
+   ![Alt text](images/Basic_Hands-on/get_deployment_source-sink.jpg)
    You can find the ‘sink_instance’ in the 'deploymentStatus'.
 
 - **Step 2.** Run the following command to get the logs of the "sink"
    ```bash
    wedge-cli logs sink_instance
    ```
-   ![Alt text](images/Basic_Hands-on/logs_sink_instance.png)
+   ![Alt text](images/Basic_Hands-on/logs_sink_instance.jpg)
 
 #### 7. Updating the "source" WASM Application
 
@@ -167,7 +169,7 @@ In this section, we are modifying the “send_message” function in the “sour
    /workspaces/wedge-cli/samples/source-sink/source/main.c
 
    Line 43, updating the string “my-value” to any word.
-   ![Alt text](images/Basic_Hands-on/source_send_message.png)
+   ![Alt text](images/Basic_Hands-on/source_send_message.jpg)
 
    Before:
    ```
@@ -196,24 +198,24 @@ In this section, we are modifying the “send_message” function in the “sour
    wedge-cli config set webserver.host=localhost
    wedge-cli -v deploy
    ```
-   ![Alt text](images/Basic_Hands-on/deploy_source-sink.png)
+   ![Alt text](images/Basic_Hands-on/deploy_source-sink.jpg)
 
 - **Step 4.** Get the new deployment status
    ```bash
    wedge-cli get deployment
    ```
-   ![Alt text](images/Basic_Hands-on/get_deployment_source-sink.png)
+   ![Alt text](images/Basic_Hands-on/get_deployment_source-sink.jpg)
 
 - **Step 5.** Get telemetry (i.e. data sent by the application)
 
    The message should be changed.
-   ![Alt text](images/Basic_Hands-on/get_telemetry_modified.png)
+   ![Alt text](images/Basic_Hands-on/get_telemetry_modified.jpg)
 
 - **Step 6.** Get logs
    ```bash
    wedge-cli logs sink_instance
    ```
-   ![Alt text](images/Basic_Hands-on/logs_sink_instance_edited.png)
+   ![Alt text](images/Basic_Hands-on/logs_sink_instance_edited.jpg)
 
 #### 8. Creating a New WASM Application
 
@@ -225,7 +227,7 @@ In this section, we are modifying the “send_message” function in the “sour
    ```
    The "hello" folder is created as below.
 
-   ![Alt text](images/Basic_Hands-on/new_hello.png)
+   ![Alt text](images/Basic_Hands-on/new_hello.jpg)
 
 - **Step 2.** Build the application
    ```bash
