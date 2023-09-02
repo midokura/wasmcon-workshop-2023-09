@@ -12,8 +12,8 @@
       "node": {
         "entryPoint": "main",
         "moduleImpl": "wasm",
-        "downloadUrl": "http://localhost:8000/bin/node.wasm",
-        "hash": "489a5aff530993c2de185a9a12b9d6abd73c79f93816b771ae7ac7154592d1c5"
+        "downloadUrl": "http://192.168.4.121:8000/bin/node.arm64.aot",
+        "hash": "56e0570ac0d94c6947a07da47e012f95aa3fd79debf1de3a2516c2517e65df82"
       }
     },
     "publishTopics": {},

@@ -11,7 +11,6 @@
 #include "evp/sdk.h"
 #include "logger.h"
 #include "senscord/c_api/senscord_c_api.h"
-#include "senscord/osal_inttypes.h"
 #include "senscord_wasm.h"
 #include <opencv2/imgproc/imgproc_c.h>
 
