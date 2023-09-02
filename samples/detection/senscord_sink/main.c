@@ -8,7 +8,9 @@
 #include "logger.h"
 #include "user_bridge_c.h"
 
-#define STREAM_NAME "Viewer"
+#ifndef WINDOW_NAME
+#define WINDOW_NAME "Default Window"
+#endif
 
 #ifndef WIDTH
 #define WIDTH 300
@@ -44,7 +46,7 @@ main(int argc, const char *argv[])
 
     LOG_DBG("Creating stream...");
     stream_handler = senscord_ub_create_stream(
-        STREAM_NAME, WIDTH, HEIGHT, WIDTH * 3, SENSCORD_PIXEL_FORMAT_RGB24);
+        WINDOW_NAME, WIDTH, HEIGHT, WIDTH * 3, SENSCORD_PIXEL_FORMAT_RGB24);
     if (stream_handler == 0) {
         LOG_DBG("senscord_ub_create_stream failed.");
         return -1;
