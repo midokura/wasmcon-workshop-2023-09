@@ -42,8 +42,13 @@ Please start codespace by following the prerequisites below.
 
 - **Step 1.** Start New Terminal on your VS Code on your laptop
    <br><img src=images/Prerequisites/Start_Terminal_VSCode.jpg width=75%><br>
+
 - **Step 2.** Go to the “PORTS” tab, then confirm the settings of port forwarding are as attached
    ![Alt text](images/Prerequisites/Confirm_Port_Forwarding.jpg)
+   
+   We use 1884 instead of 1883 to avoid conflict with user's personal MQTT.
+
+
 
 #### 4. Sending Configuration of MQTT to Raspberry Pi
 
@@ -164,7 +169,7 @@ In this section, we are modifying the “send_message” function in the “sour
    /workspaces/wedge-cli/samples/source-sink/source/main.c
 
    Line 43, updating the string “my-value” to any word.
-   
+
    ![Alt text](images/Basic_Hands-on/source_send_message.jpg)
 
    Before:
