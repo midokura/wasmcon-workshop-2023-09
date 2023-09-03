@@ -8,7 +8,7 @@
 extern "C" detections *
 get_detections(char *fbs_ptr)
 {
-    LOG_INFO("In apply");
+    LOG_DBG("In apply");
     auto postprocessed = postprocessed::GetDetection(fbs_ptr);
     auto annotations = postprocessed->annotations();
     int size = annotations->size();

@@ -130,7 +130,7 @@ send_message(char *topic, char *buf, int size)
                 result);
     }
     static int outs = 1;
-    LOG_INFO("%s: OUTPUT (%d) (topic=%s, size=%d)", module_name, outs++,
+    LOG_DBG("%s: OUTPUT (%d) (topic=%s, size=%d)", module_name, outs++,
              d->topic, (int)size);
 }
 

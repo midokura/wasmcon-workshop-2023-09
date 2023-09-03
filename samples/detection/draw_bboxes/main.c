@@ -71,7 +71,7 @@ send_message(char *topic, char *payload, uint32_t size)
     d->payload = payload;
     EVP_RESULT result =
         EVP_sendMessage(h, d->topic, d->payload, size, send_message_cb, d);
-    LOG_INFO("%s: send_message topic=%s, size=%d", module_name, d->topic,
+    LOG_DBG("%s: send_message topic=%s, size=%d", module_name, d->topic,
              size);
     if (EVP_OK != result) {
         LOG_ERR("%s %s %d: calling EVP_sendMessage", module_name, d->topic,
@@ -84,7 +84,7 @@ static void
 message_cb(const char *topic, const void *msgPayload, size_t msgPayloadLen,
            void *userData)
 {
-    LOG_INFO("%s: Received Message (topic=%s, size=%zu)", module_name, topic,
+    LOG_DBG("%s: Received Message (topic=%s, size=%zu)", module_name, topic,
              msgPayloadLen);
 
     char **dst = NULL;

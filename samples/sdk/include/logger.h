@@ -13,7 +13,7 @@
 #define LOG_LEVEL_ERROR   3 /* Unexpected fail (recoverable) */
 
 #if !defined(LOG_LEVEL_ENABLED)
-#define LOG_LEVEL_ENABLED 2
+#define LOG_LEVEL_ENABLED 1
 #endif
 
 #if LOG_LEVEL_ENABLED <= LOG_LEVEL_ERROR

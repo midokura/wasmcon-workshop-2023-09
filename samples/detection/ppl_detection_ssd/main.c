@@ -35,7 +35,7 @@ send_message_cb(EVP_MESSAGE_SENT_CALLBACK_REASON reason, void *userData)
 static void
 send_message(char *topic, char *payload, size_t size)
 {
-    LOG_INFO("%s: Sending Message (topic=%s, size=%zu)", module_name, topic,
+    LOG_DBG("%s: Sending Message (topic=%s, size=%zu)", module_name, topic,
              size);
     struct send_message_cb_data *d = malloc(sizeof(*d));
     assert(d != NULL);
@@ -56,7 +56,7 @@ static void
 message_cb(const char *topic, const void *msgPayload, size_t msgPayloadLen,
            void *userData)
 {
-    LOG_INFO("%s: Received Message (topic=%s, size=%zu)", module_name, topic,
+    LOG_DBG("%s: Received Message (topic=%s, size=%zu)", module_name, topic,
              msgPayloadLen);
 
     uint32_t p_out_size = 0;

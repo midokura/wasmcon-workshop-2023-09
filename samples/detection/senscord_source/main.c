@@ -100,10 +100,10 @@ get_and_update_image_property()
         print_senscord_error(senscord_get_last_error());
         return -1;
     }
-    LOG_INFO("image_property height = %d", image_property.height);
-    LOG_INFO("image_property width = %d", image_property.width);
-    LOG_INFO("image_property stride_bytes = %d", image_property.stride_bytes);
-    LOG_INFO("image_property pixel_format = %s", image_property.pixel_format);
+    LOG_DBG("image_property height = %d", image_property.height);
+    LOG_DBG("image_property width = %d", image_property.width);
+    LOG_DBG("image_property stride_bytes = %d", image_property.stride_bytes);
+    LOG_DBG("image_property pixel_format = %s", image_property.pixel_format);
     do_resize =
         image_property.height != HEIGHT | image_property.width != WIDTH;
     is_yuv = strcmp(image_property.pixel_format, "image_nv16") == 0;

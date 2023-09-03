@@ -28,7 +28,7 @@ static void
 message_cb(const char *topic, const void *msgPayload, size_t msgPayloadLen,
            void *userData)
 {
-    LOG_INFO("%s: INPUT (topic=%s, size=%zu)", module_name, topic,
+    LOG_DBG("%s: INPUT (topic=%s, size=%zu)", module_name, topic,
              msgPayloadLen);
     int32_t res = senscord_ub_send_data(stream_handler, (uint8_t *)msgPayload);
     if (res != 0)
