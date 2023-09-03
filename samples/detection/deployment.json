@@ -1,0 +1,128 @@
+{
+  "deployment": {
+    "deploymentId": "detection-vsa",
+    "instanceSpecs": {
+      "senscord_source": {
+        "moduleId": "senscord_source",
+        "subscribe": {
+          "give_input_tensor": "give_input_tensor-subscription"
+        },
+        "publish": {
+          "input_tensor": "input_tensor-publication"
+        }
+      },
+      "inference_wasi_nn": {
+        "moduleId": "inference_wasi_nn",
+        "subscribe": {
+          "input_tensor": "input_tensor-subscription"
+        },
+        "publish": {
+          "give_input_tensor": "give_input_tensor-publication",
+          "output_tensor": "output_tensor-publication"
+        }
+      },
+      "ppl_detection_ssd": {
+        "moduleId": "ppl_detection_ssd",
+        "subscribe": {
+          "output_tensor": "output_tensor-subscription"
+        },
+        "publish": {
+          "detections": "detections-publication"
+        }
+      },
+      "draw_bboxes": {
+        "moduleId": "draw_bboxes",
+        "subscribe": {
+          "detections": "detections-subscription",
+          "input_tensor": "input_tensor-subscription"
+        },
+        "publish": {
+          "postprocessed_image": "postprocessed_image-publication"
+        }
+      },
+      "senscord_sink": {
+        "moduleId": "senscord_sink",
+        "subscribe": {
+          "postprocessed_image": "postprocessed_image-subscription"
+        },
+        "publish": {}
+      }
+    },
+    "modules": {
+      "senscord_source": {
+        "downloadUrl": "http://192.168.4.121:5003/bin/senscord_source.arm64.aot",
+        "entryPoint": "main",
+        "hash": "12cacd169774dc9c80cbc1cea57704251f9ea62cb7aaeccab08b081d9e76306a",
+        "moduleImpl": "wasm"
+      },
+      "inference_wasi_nn": {
+        "downloadUrl": "http://192.168.4.121:5003/bin/inference_wasi_nn.arm64.aot",
+        "entryPoint": "main",
+        "hash": "bcc6608b93f682c35757914dc6d01ab5877e3e957b82f0578fec4e45c0265b38",
+        "moduleImpl": "wasm"
+      },
+      "ppl_detection_ssd": {
+        "downloadUrl": "http://192.168.4.121:5003/bin/ppl_detection_ssd.arm64.aot",
+        "entryPoint": "main",
+        "hash": "beb4f02ec0086fbbc64f2016aa1f035c7f50c7c8a247feb11a6dbe4214c53075",
+        "moduleImpl": "wasm"
+      },
+      "draw_bboxes": {
+        "downloadUrl": "http://192.168.4.121:5003/bin/draw_bboxes.arm64.aot",
+        "entryPoint": "main",
+        "hash": "5d371c70b0951653043140f23630ff80e614996a9f02f421e3dcf2b7c9ac6361",
+        "moduleImpl": "wasm"
+      },
+      "senscord_sink": {
+        "downloadUrl": "http://192.168.4.121:5003/bin/senscord_sink.arm64.aot",
+        "entryPoint": "main",
+        "hash": "1970b6b5b928ccac7dd8590d9b7acf2dfb3009d9bc8c9422449965ca80fc9ff3",
+        "moduleImpl": "wasm"
+      }
+    },
+    "publishTopics": {
+      "input_tensor-publication": {
+        "type": "local",
+        "topic": "input_tensor"
+      },
+      "give_input_tensor-publication": {
+        "type": "local",
+        "topic": "give_input_tensor"
+      },
+      "output_tensor-publication": {
+        "type": "local",
+        "topic": "output_tensor"
+      },
+      "detections-publication": {
+        "type": "local",
+        "topic": "detections"
+      },
+      "postprocessed_image-publication": {
+        "type": "local",
+        "topic": "postprocessed_image"
+      }
+    },
+    "subscribeTopics": {
+      "input_tensor-subscription": {
+        "type": "local",
+        "topic": "input_tensor"
+      },
+      "give_input_tensor-subscription": {
+        "type": "local",
+        "topic": "give_input_tensor"
+      },
+      "output_tensor-subscription": {
+        "type": "local",
+        "topic": "output_tensor"
+      },
+      "detections-subscription": {
+        "type": "local",
+        "topic": "detections"
+      },
+      "postprocessed_image-subscription": {
+        "type": "local",
+        "topic": "postprocessed_image"
+      }
+    }
+  }
+}
