@@ -45,11 +45,6 @@ Please start codespace by following the prerequisites below.
 - **Step 2.** Go to the “PORTS” tab, then confirm the settings of port forwarding are as attached
    ![Alt text](images/Prerequisites/Confirm_Port_Forwarding.jpg)
 
-   |Port|Local Address |Running Process|Visibility|Origin           |
-   |----|------------- |---------------|----------|-----------------|
-   |1883|127.0.0.1:1883|               |Private   |GitHub Codespaces|
-   |8000|127.0.0.1:8000|               |Private   |GitHub Codespaces|
-
 #### 4. Sending Configuration of MQTT to Raspberry Pi
 
 In this section, we are sending configuration of MQTT to Raspberry Pi so that the Raspberry Pi can access to the MQTT brocker running in the codespace.
@@ -65,7 +60,7 @@ In this section, we are sending configuration of MQTT to Raspberry Pi so that th
    '{"evp":
     {"iot-platform": "tb", "version": "EVP2"},
     "mqtt":
-    {"host": "192.168.11.18", "port": "1883"},
+    {"host": "192.168.11.18", "port": "1884"},
     "webserver":
     {"host": "localhost", "port": "8000"}}'
    ```
@@ -75,7 +70,7 @@ In this section, we are sending configuration of MQTT to Raspberry Pi so that th
    '{"evp":
     {"iot-platform": "tb", "version": "EVP2"},
     "mqtt":
-    {"host": "172.30.0.28", "port": "1883"},
+    {"host": "172.30.0.28", "port": "1884"},
     "webserver":
     {"host": "localhost", "port": "8000"}}'
     ```
@@ -169,6 +164,7 @@ In this section, we are modifying the “send_message” function in the “sour
    /workspaces/wedge-cli/samples/source-sink/source/main.c
 
    Line 43, updating the string “my-value” to any word.
+   
    ![Alt text](images/Basic_Hands-on/source_send_message.jpg)
 
    Before:
