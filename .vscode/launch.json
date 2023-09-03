@@ -17,9 +17,8 @@
           "b sensor_start",
           "b sensor_get_frame",
           "b wasm_compute",
-          "b wasm_get_output",
           "b telemetry",
-          "wa s v frame",
+          "watchpoint s v frame",
           "process connect -p wasm connect://127.0.0.1:1234"
         ]
       }
