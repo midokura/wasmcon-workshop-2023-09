@@ -24,7 +24,7 @@ RUN pip install wedge_cli-0.0.1-py3-none-any.whl
 RUN curl -sL https://github.com/WebAssembly/wabt/releases/download/1.0.33/wabt-1.0.33-ubuntu.tar.gz | tar zxvf - -C /tmp && \
     mv /tmp/wabt-1.0.33 /opt/wabt 
 
-RUN echo "export PATH=$PATH:/opt:/opt/wabt/bin" >> ~/.bashrc
+RUN echo "export PATH=/usr/local/bin/python:$PATH:/opt:/opt/wabt/bin" >> ~/.bashrc
 
 WORKDIR /tmp/install
 COPY . .
