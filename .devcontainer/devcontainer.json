@@ -9,7 +9,7 @@
       "settings": {
         "jupyter.kernels.filter": [
           {
-          "path": "/usr/local/bin/python3",
+          "path": "/usr/bin/python3",
           "type": "pythonEnvironment"
           }
         ]
