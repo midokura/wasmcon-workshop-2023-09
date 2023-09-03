@@ -3,6 +3,7 @@
   "dockerFile": "Dockerfile",
   "context": "..",
   "runArgs": ["--network","host"],
+  "postCreateCommand": ".devcontainer/downloadlldb.sh",
   "postStartCommand": ".devcontainer/entrypoint.sh",
   "customizations": {
 		"vscode": {
@@ -15,15 +16,15 @@
         ]
       },
 			"extensions": [
-        "ms-python.python",
-        "ms-python.vscode-pylance",
-        "ms-toolsai.jupyter",
-        "ms-toolsai.jupyter-keymap",
-        "ms-toolsai.jupyter-renderers",
-        "ms-vscode.cpptools",
-        "ms-vscode.cpptools-extension-pack",
+				"ms-python.python",
+				"ms-python.vscode-pylance",
+				"ms-toolsai.jupyter",
+				"ms-toolsai.jupyter-keymap",
+				"ms-toolsai.jupyter-renderers",
+				"ms-vscode.cpptools",
+				"ms-vscode.cpptools-extension-pack",
         "wamr-ide.wamride"
-      ]
+			]
     }
   },
   "forwardPorts": [1884, 8000]
