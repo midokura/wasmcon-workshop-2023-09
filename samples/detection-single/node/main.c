@@ -244,7 +244,7 @@ inference(frame_t frame, inference_data_t *inference_data)
     return 0;
 }
 
-static int32_t
+int32_t
 telemetry(inference_data_t inference_data)
 {
     struct telemetry_data *d = malloc(sizeof(*d));

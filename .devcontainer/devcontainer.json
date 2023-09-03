@@ -15,7 +15,7 @@
           {
             "path": "/bin/python3",
             "type": "pythonEnvironment"
-          }          
+          }
         ]
       },
 			"extensions": [
