@@ -3,8 +3,7 @@
   "dockerFile": "Dockerfile",
   "context": "..",
   "runArgs": ["--network","host"],
-  "postCreateCommand": ".devcontainer/downloadlldb.sh",
-  "postStartCommand": ".devcontainer/entrypoint.sh",
+  "postStartCommand": ".devcontainer/entrypoint.sh && .devcontainer/downloadlldb.sh",
   "customizations": {
 		"vscode": {
       "settings": {
