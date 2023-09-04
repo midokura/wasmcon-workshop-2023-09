@@ -25,6 +25,9 @@ Please start codespace by following the prerequisites below.
 - **Step 4.** VS Code is displayed on the web-browser
    ![Alt text](images/Prerequisites/VSCode_on_webbrowser.jpg)
 
+- **Step 5.** Click "setup" on the popup "No LLDB instance found. Setup now?"
+   <br><img src=images/Prerequisites/LLDB_Installing.jpg width=75%><br>
+
 #### 2. Opening Codespace in VS Code Desktop
 
 - **Step 1.** Click the menu on left corner, then click “Open in VS Code Desktop”
