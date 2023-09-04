@@ -1,5 +1,5 @@
 # Wasmcon-workshop-2023-9
-
+   ![Alt text](images/banner.jpg)
 
 Welcome to our workshop ! This is your workspace to develop the wasm application running on WEdge Agent at Raspberry Pi4.
 
@@ -72,7 +72,7 @@ In this section, we are sending configuration of MQTT to Raspberry Pi so that th
     "webserver":
     {"host": "localhost", "port": "8000"}}'
    ```
-- **Step 3.** Modify the host IP address “192.168.11.18” to the IP address of your laptop, then save it.
+- **Step 3.** Modify the MQTT host IP address “192.168.11.18” to the IP address of your laptop, then save it.
    For example, if the IP address of your laptop is “172.30.0.28”, the file should be as below.
    ```
    '{"evp":
@@ -83,15 +83,21 @@ In this section, we are sending configuration of MQTT to Raspberry Pi so that th
     {"host": "localhost", "port": "8000"}}'
     ```
 - **Step 4.** Send the configuration (netcat_config_message.txt) to your Raspberry Pi.
-   ```bash
-   netcat midopi999 8100 < netcat_config_message.txt
-   ```
-   Please change the hostname “midopi999” and the port “8100” for your assigned Raspberry Pi.
-   ```
-   Config received and applied(base)
-   ```
-   You should receive this kind of message “Config received and applied(base)” as response on your terminal.
+     For Linux:
+     ```bash
+     nc midopi999 8100 < netcat_config_message.txt
+     ```
+     For Windows
+     ```bash
+     ncat midopi999 8100 < netcat_config_message.txt
+     ```
+     Please change the hostname “midopi999” and the port “8100” for your assigned Raspberry Pi.
+     ```
+     Config received and applied(base)
+     ```
+     You should receive this kind of message “Config received and applied(base)” as response on your terminal.
 
+     (if you are using Windows you can install netcat by installing nmap. You can download the .exe from here https://nmap.org/dist/nmap-7.94-setup.exe)
 
 ### Basic Hands-on
    Now you are ready to use wedge-cli. Please go to your Codespace VS Code on your laptop.
@@ -124,13 +130,7 @@ In this section, we are sending configuration of MQTT to Raspberry Pi so that th
    <br>![Alt text](images/Basic_Hands-on/source-sink_built_apps.jpg)
 
 #### 4. Deploying the Built WASM Applications to Raspberry Pi
-- **Step 1.** Change configuration setting to localhost
-   ```bash
-   wedge-cli config set webserver.host=localhost
-   ```
-   The web-server will be started in the next step for the built applications to be downloaded.
-
-- **Step 2.** Deploy the built applications to the Raspberry Pi
+- **Step 1.** Deploy the built applications to the Raspberry Pi
    ```bash
    wedge-cli -v deploy
    ```
@@ -187,19 +187,16 @@ In this section, we are modifying the “send_message” function in the “sour
 - **Step 2.** Build the application again
    ```bash
    cd samples/source-sink
-   wedge-cli config set webserver.host="YOUR LAPTOP IP ADDRESS"
    wedge-cli build arm64
    ```
 
 - **Step 3.** Remove the existing applications
    ```bash
-   wedge-cli config set webserver.host=localhost
    wedge-cli deploy -e
    ```
 
 - **Step 4.** Deploy the built application
    ```bash
-   wedge-cli config set webserver.host=localhost
    wedge-cli -v deploy
    ```
    ![Alt text](images/Basic_Hands-on/deploy_source-sink.jpg)
@@ -236,19 +233,16 @@ In this section, we are modifying the “send_message” function in the “sour
 - **Step 2.** Build the application
    ```bash
    cd hello/hello
-   wedge-cli config set webserver.host="YOUR LAPTOP IP ADDRESS"
    wedge-cli build arm64
    ```
 
 - **Step 3.** Remove the existing applications
    ```bash
-   wedge-cli config set webserver.host=localhost
    wedge-cli deploy -e
    ```
 
 - **Step 4.** Deploy the built application
    ```bash
-   wedge-cli config set webserver.host=localhost
    wedge-cli -v deploy
    ```
 
