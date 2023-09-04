@@ -360,6 +360,8 @@ class MockEVP:
         except KeyboardInterrupt:
             return EVP_SHOULDEXIT
         if isinstance(e, EVPShutdown):
+            e = EVPShutdown()
+            self.injectEvent(e) 
             return EVP_SHOULDEXIT 
         
         self.dispatchEvent(env, e)
@@ -420,4 +422,9 @@ class MockEVP:
             reason=EVP_TELEMETRY_CALLBACK_REASON_SENT, cb=cb, userdata=userdata
         )
         self.injectEvent(e)
+        return EVP_OK
+    
+    def EVP_sendShutdown(self):
+        e = self.EVPShutdown()
+        self.injectEvent(e) 
         return EVP_OK

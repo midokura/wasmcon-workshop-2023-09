@@ -1,17 +1,12 @@
-MODULE_NAME = node
+MODULE_NAME = senscord_sink
 
 PROJECTDIR = ../../
 include $(PROJECTDIR)/sdk/rules.mk
 
-CFLAGS += -O0 -g
-CFLAGS += -DWINDOW_NAME=\"$(GITHUB_USER)_single\"
+CFLAGS += -DWINDOW_NAME=\"$(GITHUB_USER)_pipeline\"
 
 OBJS=\
-	main.o\
-	draw_bbox.o\
-	nn.o\
-	parson.o\
-	sensor.o
+	main.o
 
 TARGET=$(BINDIR)/$(MODULE_NAME).wasm
 
@@ -22,4 +17,4 @@ $(TARGET): $(OBJS)
 	$(CC) $(CFLAGS) $(PROJ_LDFLAGS) -o $@ $(OBJS)
 
 clean:
-	rm -f $(TARGET) $(OBJS)
+	rm -f $(TARGET)

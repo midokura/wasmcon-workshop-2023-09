@@ -4,26 +4,31 @@
   "context": "..",
   "runArgs": ["--network","host"],
   "postStartCommand": ".devcontainer/entrypoint.sh",
+  "postAttachCommand": ".devcontainer/downloadlldb.sh",
   "customizations": {
 		"vscode": {
       "settings": {
         "jupyter.kernels.filter": [
           {
-          "path": "/usr/local/bin/python3",
+          "path": "/usr/bin/python3",
           "type": "pythonEnvironment"
+          },
+          {
+            "path": "/bin/python3",
+            "type": "pythonEnvironment"
           }
         ]
       },
 			"extensions": [
-        "ms-python.python",
-        "ms-python.vscode-pylance",
-        "ms-toolsai.jupyter",
-        "ms-toolsai.jupyter-keymap",
-        "ms-toolsai.jupyter-renderers",
-        "ms-vscode.cpptools",
-        "ms-vscode.cpptools-extension-pack",
+				"ms-python.python",
+				"ms-python.vscode-pylance",
+				"ms-toolsai.jupyter",
+				"ms-toolsai.jupyter-keymap",
+				"ms-toolsai.jupyter-renderers",
+				"ms-vscode.cpptools",
+				"ms-vscode.cpptools-extension-pack",
         "wamr-ide.wamride"
-      ]
+			]
     }
   },
   "forwardPorts": [1884, 8000]

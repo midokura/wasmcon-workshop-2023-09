@@ -187,7 +187,7 @@ inference(frame_t frame, inference_data_t *inference_data)
         exit(1);
     }
     uint64_t end_time = get_microsecond();
-    LOG_INFO("Inference time: %f ms", (end_time - start_time) / 1000.0);
+    LOG_DBG("Inference time: %f ms", (end_time - start_time) / 1000.0);
     uint32_t output_size = 1;
 
     if (wasm_get_output(ctx, 2, &inference_data->numofdetections,
@@ -198,7 +198,7 @@ inference(frame_t frame, inference_data_t *inference_data)
 
     LOG_INFO("numofdetections %f", inference_data->numofdetections);
     if (inference_data->numofdetections > 0) {
-        LOG_INFO("Drawing bboxes");
+        LOG_DBG("Drawing bboxes");
         output_size = MAX_BBOXES * 4;
         inference_data->bbox = malloc(sizeof(float) * output_size);
         if (wasm_get_output(ctx, 1, inference_data->bbox, &output_size) !=
@@ -224,9 +224,9 @@ inference(frame_t frame, inference_data_t *inference_data)
         }
 
         for (int i = 0; i < (uint8_t)inference_data->numofdetections; i++) {
-            LOG_INFO("Bbox %i-th:", i);
-            LOG_INFO("Score: %f", inference_data->score[i]);
-            LOG_INFO("Class: %f", inference_data->class[i]);
+            LOG_DBG("Bbox %i-th:", i);
+            LOG_DBG("Score: %f", inference_data->score[i]);
+            LOG_DBG("Class: %f", inference_data->class[i]);
             if (inference_data->score[i] < 0.7) {
                 continue;
             }
@@ -244,7 +244,7 @@ inference(frame_t frame, inference_data_t *inference_data)
     return 0;
 }
 
-static int32_t
+int32_t
 telemetry(inference_data_t inference_data)
 {
     struct telemetry_data *d = malloc(sizeof(*d));
@@ -271,7 +271,7 @@ telemetry(inference_data_t inference_data)
         EVP_RESULT result =
             EVP_sendTelemetry(h, d->entries, 1, telemetry_cb, d);
         assert(result == EVP_OK);
-        LOG_INFO("Send output tensor into Hub");
+        LOG_DBG("Send output tensor into Hub");
 
         json_free_serialized_string(result_upload);
         json_value_free(root_value);
@@ -447,11 +447,11 @@ main()
             LOG_INFO("Skipping frame");
             continue;
         }
-        LOG_INFO("image_property height = %d", frame.info[0].property.height);
-        LOG_INFO("image_property width = %d", frame.info[0].property.width);
-        LOG_INFO("image_property stride_bytes = %d",
+        LOG_DBG("image_property height = %d", frame.info[0].property.height);
+        LOG_DBG("image_property width = %d", frame.info[0].property.width);
+        LOG_DBG("image_property stride_bytes = %d",
                  frame.info[0].property.stride_bytes);
-        LOG_INFO("image_property pixel_format = %s",
+        LOG_DBG("image_property pixel_format = %s",
                  frame.info[0].property.pixel_format);
 
         do_resize = frame.info[0].property.height != INPUT_TENSOR_SIZE |

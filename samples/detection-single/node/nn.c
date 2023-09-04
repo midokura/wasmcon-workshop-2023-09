@@ -54,6 +54,7 @@ wasm_load(char *model_name, graph *g, execution_target target)
     arr.buf[0].size = result;
     arr.buf[0].buf = buffer;
 
+    // WASI-NN 
     error res = load(&arr, tensorflowlite, target, g);
 
     fclose(pFile);
@@ -65,6 +66,7 @@ wasm_load(char *model_name, graph *g, execution_target target)
 error
 wasm_init_execution_context(graph g, graph_execution_context *ctx)
 {
+    // WASI-NN 
     return init_execution_context(g, ctx);
 }
 
@@ -84,6 +86,7 @@ wasm_set_input(graph_execution_context ctx, uint8_t *input_tensor,
         tensor.dimensions->buf[i] = dim[i];
     tensor.type = ip32;
     tensor.data = (uint8_t *)input_tensor;
+    // WASI-NN 
     error err = set_input(ctx, 0, &tensor);
 
     free(dims.buf);
@@ -93,6 +96,7 @@ wasm_set_input(graph_execution_context ctx, uint8_t *input_tensor,
 error
 wasm_compute(graph_execution_context ctx)
 {
+    // WASI-NN 
     return compute(ctx);
 }
 
@@ -100,5 +104,6 @@ error
 wasm_get_output(graph_execution_context ctx, uint32_t index, float *out_tensor,
                 uint32_t *out_size)
 {
+    // WASI-NN 
     return get_output(ctx, index, (uint8_t *)out_tensor, out_size);
 }
