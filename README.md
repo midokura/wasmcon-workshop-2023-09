@@ -85,11 +85,11 @@ In this section, we are sending configuration of MQTT to Raspberry Pi so that th
 - **Step 4.** Send the configuration (netcat_config_message.txt) to your Raspberry Pi.
      For Linux:
      ```bash
-     nc midopi999 8100 < netcat_config_message.txt
+     nc midopi999.local 8100 < netcat_config_message.txt
      ```
      For Windows
      ```bash
-     ncat midopi999 8100 < netcat_config_message.txt
+     ncat midopi999.local 8100 < netcat_config_message.txt
      ```
      Please change the hostname “midopi999” and the port “8100” for your assigned Raspberry Pi.
      ```
