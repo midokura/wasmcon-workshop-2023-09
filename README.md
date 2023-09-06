@@ -48,56 +48,18 @@ Please start codespace by following the prerequisites below.
 
 - **Step 2.** Go to the “PORTS” tab, then confirm the settings of port forwarding are as attached
    ![Alt text](images/Prerequisites/Confirm_Port_Forwarding.jpg)
-   
+
    We use 1884 instead of 1883 to avoid conflict with user's personal MQTT.
-
-
 
 #### 4. Sending Configuration of MQTT to Raspberry Pi
 
 In this section, we are sending configuration of MQTT to Raspberry Pi so that the Raspberry Pi can access to the MQTT brocker running in the codespace.
 
-- **Step 1.** Start Terminal on your laptop (not on your Codespace VS Code)
-- **Step 2.** Check the IP address of your laptop
-   ```bash
-   ip a
+- **Step 1.** On another window/tab in your browser, go to [http://your-designated-raspberrypi-host:9000](http://your-designated-raspberrypi-host:9000)
+- **Step 2.** Click on the link to your designated target port. You should get the following kind of message:
    ```
-- **Step 3.** Create the file *netcat_config_message.txt* on your laptop
-- **Step 4.** Open *netcat_config_message.txt* then paste the following code
+    Configuration to port {target port} has been successful!
    ```
-   '{"evp":
-    {"iot-platform": "tb", "version": "EVP2"},
-    "mqtt":
-    {"host": "192.168.11.18", "port": "1884"},
-    "webserver":
-    {"host": "localhost", "port": "8000"}}'
-   ```
-- **Step 3.** Modify the MQTT host IP address “192.168.11.18” to the IP address of your laptop, then save it.
-   For example, if the IP address of your laptop is “172.30.0.28”, the file should be as below.
-   ```
-   '{"evp":
-    {"iot-platform": "tb", "version": "EVP2"},
-    "mqtt":
-    {"host": "172.30.0.28", "port": "1884"},
-    "webserver":
-    {"host": "localhost", "port": "8000"}}'
-    ```
-- **Step 4.** Send the configuration (netcat_config_message.txt) to your Raspberry Pi.
-     For Linux:
-     ```bash
-     nc midopi999.local 8100 < netcat_config_message.txt
-     ```
-     For Windows
-     ```bash
-     ncat midopi999.local 8100 < netcat_config_message.txt
-     ```
-     Please change the hostname “midopi999” and the port “8100” for your assigned Raspberry Pi.
-     ```
-     Config received and applied(base)
-     ```
-     You should receive this kind of message “Config received and applied(base)” as response on your terminal.
-
-     (if you are using Windows you can install netcat by installing nmap. You can download the .exe from here https://nmap.org/dist/nmap-7.94-setup.exe)
 
 ### Basic Hands-on
    Now you are ready to use wedge-cli. Please go to your Codespace VS Code on your laptop.
@@ -249,16 +211,16 @@ In this section, we are modifying the “send_message” function in the “sour
 ### Advanced Hands-on
 - Face Detection Application with live camera stream can be deployed
 
-   Jump to 
+   Jump to
    [wasmcon-visionapp.ipynb](./wasmcon-visionapp.ipynb)
 
 
 
-### Troubleshooting 
+### Troubleshooting
 
 1. No response from wedge-cli
 
-   If you already run mqtt broker in your local machine, you will get fail because WEdge Agent may be trying to connect there. 
+   If you already run mqtt broker in your local machine, you will get fail because WEdge Agent may be trying to connect there.
 
    Please stop your mqtt broker during workshop. example for mosquitto on linux
 
@@ -268,13 +230,13 @@ In this section, we are modifying the “send_message” function in the “sour
 
    If it is difficult, don't worry. codespaces automatically allocate different port as port-forwarding.
    Please check the forwarded port in the bottom of codespaces window. There is the "PORTS" and see the port information and set it mqtt.port via WEdge CLI.
-   
+
 2. Download never finished
-   If you have firewall between host and device, it might be block module download. 
+   If you have firewall between host and device, it might be block module download.
 
    Please allow the port to pass firewall. example for ufw on linux
 
    ```bash
    sudo ufw allow <port>
    sudo ufw enable
-   ```   
+   ```
