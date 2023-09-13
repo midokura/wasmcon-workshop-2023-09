@@ -1,7 +1,7 @@
 FROM python:3.10-bookworm
 RUN apt-get update && apt-get install -y \
         make cmake git curl wget software-properties-common unzip pip \
-        ffmpeg libsm6 libxext6 git cmake build-essential clang gcc g++ pkg-config vim lsof
+        ffmpeg libsm6 libxext6 git cmake build-essential clang gcc g++ pkg-config vim lsof npm
 
 # mosquitto
 RUN apt-get update && apt-get install -y mosquitto
@@ -44,6 +44,7 @@ RUN pip install ${MOCK_DIR}/senscord_mock --user
 RUN pip install ${MOCK_DIR}/wasi_nn --user
 RUN pip install ${MOCK_DIR}/api --user
 RUN pip install -r ${WORKSHOP_DIR}/requirements.txt --user
+RUN npm install -g serve
 
 WORKDIR /root
 # Store directroy
