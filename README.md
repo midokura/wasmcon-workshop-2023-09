@@ -20,10 +20,13 @@ Please start codespace by following the prerequisites below.
 
 - **Step 3.** Click "Create codespace"
    <br><img src=images/Prerequisites/Create_codespace.jpg width=75%><br>
-   It would take around 5 minutes to build the container.
+   It might take some minutes to build the container at the first time.
    <br><img src=images/Prerequisites/Setting_up_your_codespace.jpg width=75%><br>
+
 - **Step 4.** VS Code is displayed on the web-browser
-   ![Alt text](images/Prerequisites/VSCode_on_webbrowser.jpg)
+   ![Alt text](images/Prerequisites/VSCode_on_webbrowser.jpg)<br>
+   Some installations will be automatically executed on the TERMINAL. Please wait until all installation is done. It would take a minute.
+   ![Alt text](images/Prerequisites/Codespace_VSCode_Browser_Installed.jpg)
 
 - **Step 5.** Click "setup" on the popup "No LLDB instance found. Setup now?"
    <br><img src=images/Prerequisites/LLDB_Installing.jpg width=75%><br>
@@ -47,9 +50,9 @@ Please start codespace by following the prerequisites below.
    <br><img src=images/Prerequisites/Start_Terminal_VSCode.jpg width=75%><br>
 
 - **Step 2.** Go to the “PORTS” tab, then confirm the settings of port forwarding are as attached
-   ![Alt text](images/Prerequisites/Confirm_Port_Forwarding.jpg)
+   <br>![Alt text](images/Prerequisites/Confirm_Port_Forwarding.jpg)
 
-   We use 1884 instead of 1883 to avoid conflict with user's personal MQTT.
+   We use 1884 instead of 1883 to avoid conflict with the user's personal MQTT.
 
 #### 4. Sending Configuration of MQTT to Raspberry Pi
 
@@ -87,7 +90,7 @@ In this section, we are sending configuration of MQTT to Raspberry Pi so that th
    ```bash
    cd samples/source-sink && wedge-cli build arm64
    ```
-   ![Alt text](images/Basic_Hands-on/Build_source_sink.jpg)
+   ![Alt text](images/Basic_Hands-on/Build_source_sink.jpg)<br>
    You can find the built applications as below.
    <br>![Alt text](images/Basic_Hands-on/source-sink_built_apps.jpg)
 
@@ -97,10 +100,17 @@ In this section, we are sending configuration of MQTT to Raspberry Pi so that th
    wedge-cli -v deploy
    ```
    ![Alt text](images/Basic_Hands-on/deploy_source-sink.jpg)
+
    ```bash
    wedge-cli get deployment
    ```
    ![Alt text](images/Basic_Hands-on/get_deployment_source-sink.jpg)
+
+   **Note:**<br>
+    If you get the timeout message "WARNING: Timeout when sending modules.", please make sure if you set your laptop IP address correctly in the above section. You can check the current configuration by executing:
+   ```bash
+   wedge-cli config get webserver.host
+   ```
 
 #### 5. Getting Telemetry Sent from "sink" WASM Application
 
@@ -116,7 +126,7 @@ In this section, we are getting logs of the "sink" WASM application.
    ```bash
    wedge-cli get deployment
    ```
-   ![Alt text](images/Basic_Hands-on/get_deployment_source-sink.jpg)
+   ![Alt text](images/Basic_Hands-on/get_deployment_source-sink.jpg)<br>
    You can find the ‘sink_instance’ in the 'deploymentStatus'.
 
 - **Step 2.** Run the following command to get the logs of the "sink"
@@ -171,7 +181,7 @@ In this section, we are modifying the “send_message” function in the “sour
 
 - **Step 5.** Get telemetry (i.e. data sent by the application)
 
-   The message should be changed.
+   The message should be changed.<br>
    ![Alt text](images/Basic_Hands-on/get_telemetry_modified.jpg)
 
 - **Step 6.** Get logs
@@ -184,7 +194,7 @@ In this section, we are modifying the “send_message” function in the “sour
 
 - **Step 1.** Create a new template application
 
-   If we set "hello" as application name, the command is as below.
+   If we set "hello" as the application name, the command is as below.
    ```bash
    wedge-cli new hello
    ```
@@ -220,9 +230,9 @@ In this section, we are modifying the “send_message” function in the “sour
 
 1. No response from wedge-cli
 
-   If you already run mqtt broker in your local machine, you will get fail because WEdge Agent may be trying to connect there.
+   If you already run mqtt broker in your local machine, you will get failed because WEdge Agent may be trying to connect there.
 
-   Please stop your mqtt broker during workshop. example for mosquitto on linux
+   Please stop your mqtt broker during the workshop. example for mosquitto on linux
 
    ```bash
    sudo systemctl stop mosquitto.service
@@ -232,9 +242,9 @@ In this section, we are modifying the “send_message” function in the “sour
    Please check the forwarded port in the bottom of codespaces window. There is the "PORTS" and see the port information and set it mqtt.port via WEdge CLI.
 
 2. Download never finished
-   If you have firewall between host and device, it might be block module download.
+   If you have a firewall between host and device, it might block module download.
 
-   Please allow the port to pass firewall. example for ufw on linux
+   Please allow the port to pass the firewall. example for ufw on linux
 
    ```bash
    sudo ufw allow <port>
