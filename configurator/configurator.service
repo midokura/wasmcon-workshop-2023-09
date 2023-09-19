@@ -1,0 +1,10 @@
+[Unit]
+Description=User-friendly WEdge CLI Configurator
+
+[Service]
+ExecStart=/usr/bin/python3 /opt/configurator.py
+Restart=on-failure
+RestartSec=5s
+
+[Install]
+WantedBy=default.target
